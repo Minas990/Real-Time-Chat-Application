@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { NotificationsEntity, NOTIFICATIONSTYPES } from './entities/notifications.entity';
 import { In, Repository } from 'typeorm';
 import { UserService } from 'src/user/user.service';
-import {Status as NotificationsStatus} from '../../common/status';
+import {Status as NotificationsStatus} from '../common/status';
 import { NotificationsResponse } from './types/notifications-Response.type';
 @Injectable()
 export class NotificationsService 

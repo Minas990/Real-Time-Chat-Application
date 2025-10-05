@@ -1,7 +1,7 @@
 import { UserEntity } from "src/user/entites/user.entity";
 import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-import {Status as MessageStatus} from '../../../common/status';
+import {Status as MessageStatus} from '../../common/status';
 
 
 @Entity('message')

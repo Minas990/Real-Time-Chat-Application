@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import {Status as MessageStatus} from '../../../common/status';
+import {Status as MessageStatus} from '../../common/status';
 
 export class SendMessageDto
 {

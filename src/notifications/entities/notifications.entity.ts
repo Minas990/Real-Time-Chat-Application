@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-import {Status as NotificationsStatus} from '../../../common/status';
+import {Status as NotificationsStatus} from '../../common/status';
 import { UserEntity } from "src/user/entites/user.entity";
 
 export enum NOTIFICATIONSTYPES{
