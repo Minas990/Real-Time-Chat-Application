@@ -1,0 +1,92 @@
+### SIGN UP
+POST http://localhost:8000/auth/signup
+Content-Type: application/json
+
+{
+    "name":"mail",
+    "email":"mail@gmail.com" ,
+    "password":"123456",
+    "username":"mail"
+}
+
+### LOGIN 
+POST http://localhost:8000/auth/login
+Content-Type: application/json
+
+{
+    "username":"minaz",
+    "password":"123456"
+}
+
+### UPDATE PASSWORD
+POST http://localhost:8000/auth/updatePassword
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTc1ODUzNTcwNCwiZXhwIjoxNzU4NTM5MzA0fQ.kKq3ytAiJ5u39owa0NsIb21oJAsH0u4QvNblLtnfRAE
+
+{
+    "password":"123456",
+    "newPassword":"123456"
+}
+
+
+### ask Confirm email 
+POST http://localhost:8000/auth/confirm 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTc1ODUzODg4NiwiZXhwIjoxNzU4NTQyNDg2fQ.Fw6QGvCSqzjjZb_wzF_XRd3XGxNAXCz7L6bgVYfNU6g
+
+
+
+
+### CONFIRM 
+POST http://localhost:8000/auth/confirm/email 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTc1ODUzNTcwNCwiZXhwIjoxNzU4NTM5MzA0fQ.kKq3ytAiJ5u39owa0NsIb21oJAsH0u4QvNblLtnfRAE
+
+{
+    "otp":"646410"
+}
+
+### Forget PASSWORD
+POST http://localhost:8000/auth/forgetPassword
+Content-Type: application/json
+
+{
+    "email":"a@gmail.com"
+}
+
+
+### RESET PASSWORD
+POST http://localhost:8000/auth/resetPassword/3e90cd1167c171802377143e5b43f6cbb6165fd21d7bd3a11e48403e6b0c9446
+Content-Type: application/json
+
+{
+    "password":"123456"
+}
+
+### GET USERS
+GET  http://localhost:8000/user
+
+### GET ONE USER
+GET  http://localhost:8000/user/32
+
+### UPDATE USER
+PATCH  http://localhost:8000/user/16
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTc1ODM5MjU3OSwiZXhwIjoxNzU4Mzk2MTc5fQ.icpUg7unbE3MyvH9L5TylN9hEw0-ykjYuI1GWax5934
+
+{
+    "email":"bemwa@gmail.com"
+}
+
+
+
+### DELETE USER
+DELETE   http://localhost:8000/user/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTc1ODIxMTA4MSwiZXhwIjoxNzU4MjE0NjgxfQ.9ZW-bF6KmQkNWJfssXBBs0SLy52IvFnM2VDtLkoqtqI
+
+
+### get message
+GET http://localhost:8000/messages/13
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzU4OTkzNTkxLCJleHAiOjE3NTg5OTcxOTF9.YCzSIlvJxmtTsNVo9d6Dvf1ctIZr-ZuQqjlE4E3NcoA
+
+
