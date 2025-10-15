@@ -19,14 +19,12 @@ import { FriendEntity } from './friend/entities/friend.entity';
 
 
 
-
 @Module({
 
   imports: [
     ConfigModule.forRoot({
       isGlobal:true,
     }),
-
     TypeOrmModule.forRoot({
       type:'postgres',
       database:process.env.DB_NAME,
@@ -34,7 +32,8 @@ import { FriendEntity } from './friend/entities/friend.entity';
       entities:[UserEntity,MessageEntity,NotificationsEntity,FriendRequestEntity,FriendEntity],
       password: process.env.DP_PASS,
       port: parseInt(process.env.DP_PORT ?? '5432'),
-      synchronize:true
+      host:process.env.HOST,
+      synchronize:true //<- be careful
     }),
     UserModule,
     AuthModule,
