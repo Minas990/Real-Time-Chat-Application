@@ -17,7 +17,7 @@ This project implements a modern chat backend that supports **real-time communic
 - 🔔 **Real-time Notifications** - Get notified for messages, friend requests, etc.
 - 📧 **Email Verification** - OTP-based email confirmation
 - 🔄 **Password Recovery** - Secure password reset via email
-- 📤 **File Uploads** - Profile photo uploads with Cloudinary
+- 📤 **File Uploads** - Profile photo uploads with AWS S3
 - 🐳 **Docker Support** - Production-ready containerization
 - 📊 **Message Status Tracking** - Sent, Delivered, Read status
 
@@ -71,7 +71,7 @@ src/
 │   └── dto/
 ├── file-upload/            # File upload module
 │   ├── file-upload.service.ts
-│   └── cloudinary/         # Cloudinary integration
+│   └── s3/                 # AWS S3 integration
 ├── common/                 # Shared utilities
 │   └── status.ts           # Status enums
 ├── filter/                 # Exception filters
@@ -93,10 +93,22 @@ src/
 | **Passport.js** | Authentication |
 | **JWT** | Token-based auth |
 | **Nodemailer** | Email service |
-| **Cloudinary** | Image storage |
+| **AWS S3** | Image storage |
 | **Sharp** | Image processing |
 | **Docker** | Containerization |
 | **class-validator** | DTO validation |
+
+---
+
+## ☁️ AWS Services
+
+| Service | Purpose |
+|---------|---------|
+| **EC2** | Application hosting |
+| **RDS (PostgreSQL)** | Managed database |
+| **S3** | File storage (profile photos) |
+
+> For detailed AWS deployment instructions, see [AWS Deployment Guide](./aws/README.md)
 
 ---
 
@@ -111,10 +123,10 @@ NODE_ENV=development
 
 # Database
 DB_NAME=your_database_name
-DP_USERNAME=postgres
-DP_PASS=your_password
-DP_PORT=5432
-HOST=localhost
+DB_USERNAME=postgres
+DB_PASS=your_password
+DB_PORT=5432
+DB_HOST=localhost
 
 # JWT
 JWT_SECRET=your_jwt_secret_key
@@ -126,10 +138,11 @@ EMAIL_USERNAME=your_email@example.com
 EMAIL_PASSWORD=your_email_password
 EMAIL_ADMIN=admin@example.com
 
-# Cloudinary
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+# AWS S3
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your_access_key_id
+AWS_SECRET_ACCESS_KEY=your_secret_access_key
+AWS_S3_BUCKET=your_bucket_name
 
 # Google OAuth
 GOOGLE_CLIENT_ID=your_google_client_id
