@@ -33,7 +33,8 @@ import { FriendEntity } from './friend/entities/friend.entity';
       password: process.env.DP_PASS,
       port: parseInt(process.env.DP_PORT ?? '5432'),
       host:process.env.DB_HOST,
-      synchronize:true //<- be careful
+      synchronize:true, //<- be careful
+      ssl: { rejectUnauthorized: false },
     }),
     UserModule,
     AuthModule,
