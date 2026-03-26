@@ -32,7 +32,7 @@ import { FriendEntity } from './friend/entities/friend.entity';
       entities:[UserEntity,MessageEntity,NotificationsEntity,FriendRequestEntity,FriendEntity],
       password: process.env.DP_PASS,
       port: parseInt(process.env.DP_PORT ?? '5432'),
-      host:process.env.HOST,
+      host:process.env.DB_HOST,
       synchronize:true //<- be careful
     }),
     UserModule,
