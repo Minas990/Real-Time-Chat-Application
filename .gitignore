@@ -2,3 +2,5 @@
 node_modules
 dist
 *.md
+*.pem
+start.sh
