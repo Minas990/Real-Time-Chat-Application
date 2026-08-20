@@ -8,6 +8,46 @@ A **real-time chat platform** built with **NestJS**, **PostgreSQL**, and **Socke
 
 This project implements a modern chat backend that supports **real-time communication** between users with a clean, modular architecture. The application provides a complete social chat experience with user authentication, friend management, real-time messaging, and notifications.
 
+
+## 🏛️ Proposed Distributed Architecture
+
+The current deployment is a single monolithic NestJS process (EC2 + RDS + S3), which is
+what's documented above. It works, but it inherits the limitation already called out in
+**Known Limitations #1**: WebSocket connections aren't distributed, so scaling past one
+instance means connected clients can miss events delivered to a different node.
+
+To address that — and the account-deletion consistency problems that come with splitting
+a monolith into services — I designed a target distributed architecture on AWS and
+implemented it fully as Terraform IaC.
+
+**Diagram:** ![`diagrams/architecture.svg`](./diagrams/architecture.svg) · [Lucidchart](https://lucid.app/lucidchart/5a95551c-73b5-4c42-bd41-c158d7b2108f/edit?viewport_loc=-756%2C45%2C3385%2C1667%2C0_0&invitationId=inv_d1e648e6-aa12-4da0-b07c-6867b0d37dc0)
+
+**Infrastructure as code:** [`terraform/`](./terraform) — see [`terraform/README.md`](./terraform/README.md)
+for the full module breakdown and the reasoning behind every architectural decision
+(JWT revocation strategy, SNS fan-out vs. shared queues, why pub/sub was rejected for
+account-deletion but kept for chat delivery, DynamoDB vs. Postgres split, VPC boundary
+choices, and more).
+
+### What changes, at a glance
+
+| | Current (this repo) | Proposed (Terraform) |
+|---|---|---|
+| Deployment | Single EC2 instance | ALB + Auto Scaling Groups (user-service, chat-service) |
+| WebSocket scaling | Single process, in-memory connection map | Redis pub/sub fan-out across chat-service instances |
+| User data | Postgres `User` table | DynamoDB (`users` table) |
+| Chat data | Postgres (`Message`, `Friend`, `FriendRequest`) | Postgres, unchanged — this stays relational |
+| Account deletion | Synchronous cascade delete (TypeORM) | Synchronous Redis revoke + async SNS→SQS→Lambda fan-out for message cleanup and email |
+| Session revocation | JWT expires naturally (1 hour) | Redis-backed revoked-user flag, checked per-request, enabling near-instant kickout |
+| Email | Nodemailer via SMTP | Brevo API via a dedicated Lambda, SSM Parameter Store for the API key |
+| Media storage | S3 (single prefix) | S3, split into `profile-photos/` and `message-media/` prefixes |
+
+This is a **designed target architecture**, not what's currently deployed — the app
+above runs as-is on the simpler EC2 setup. The Terraform module is a separate,
+self-contained exercise in how this system would need to evolve to solve its own
+documented scaling limitation.
+
+---
+
 ### ✨ Key Features
 
 - 🔐 **JWT-based Authentication** - Secure login/signup with token-based auth

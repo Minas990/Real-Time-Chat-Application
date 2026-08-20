@@ -1,0 +1,18 @@
+aws_region   = "eu-central-1"
+project_name = "friendchat"
+
+vpc_cidr              = "10.0.0.0/16"
+public_subnet_cidrs   = ["10.0.0.0/24", "10.0.1.0/24"]
+private_subnet_cidrs  = ["10.0.10.0/24", "10.0.11.0/24"]
+
+db_name     = "chatdb"
+db_username = "chatapp_admin"
+db_password = "CHANGE_ME_use_a_real_secret"
+
+brevo_api_key      = "CHANGE_ME_brevo_api_key"
+brevo_sender_email = "noreply@yourdomain.com"
+
+user_service_instance_type = "t3.micro"
+chat_service_instance_type = "t3.micro"
+redis_node_type             = "cache.t3.micro"
+rds_instance_class          = "db.t3.micro"
